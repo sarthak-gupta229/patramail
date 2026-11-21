@@ -69,19 +69,12 @@ function validate(email, defaults = {}) {
       !object(
         value,
         path,
-        button ? ['text', 'link', 'color', 'align'] : ['text', 'link'],
+        button ? ['text', 'link', 'color'] : ['text', 'link'],
       )
     )
       return;
     if (button && value.color !== undefined && !validColor(value.color)) {
       errors.push(`${path}.color must be a three- or six-digit hex color`);
-    }
-    if (
-      button &&
-      value.align !== undefined &&
-      !['left', 'center'].includes(value.align)
-    ) {
-      errors.push(`${path}.align must be "left" or "center"`);
     }
     string(value.text, `${path}.text`, true);
     link(value.link, `${path}.link`, true);

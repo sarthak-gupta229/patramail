@@ -43,4 +43,3 @@
 - Event redesign — Reuse the caller's custom theme colors and the existing button component, so themed event emails and custom action colors still work.
 - Account template follow-up — Add src/account-templates.js, examples/account.js and test/account-templates.test.js for three account builders, previews and coverage.
 - Account template follow-up — Reuse the transactional renderer and require an application-supplied HTTP(S) action link so the same input works with both constructors.
-- Account button follow-up — Set account template buttons to center using table alignment and inline margins for email-client compatibility.

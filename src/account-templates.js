@@ -58,7 +58,7 @@ function accountTemplate(preset, options) {
     body: {
       greeting: preset.title,
       intro: paragraphs,
-      actions: [{ button: { text: buttonText, link, align: 'center' } }],
+      actions: [{ button: { text: buttonText, link } }],
       outro,
     },
   };
