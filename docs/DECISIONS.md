@@ -44,3 +44,5 @@
 - Account template follow-up — Add src/account-templates.js, examples/account.js and test/account-templates.test.js for three account builders, previews and coverage.
 - Account template follow-up — Reuse the transactional renderer and require an application-supplied HTTP(S) action link so the same input works with both constructors.
 - README follow-up — Add docs/events-preview.png using generated light and dark event previews to show the actual output on GitHub.
+- npm listing follow-up — Use absolute public GitHub links and hosted preview images so npm readers can reach assets and documentation outside the tarball.
+- npm listing follow-up — Prepare version 0.1.1 because npm updates the package-page README when a new version is published.

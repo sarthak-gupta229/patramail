@@ -1,6 +1,6 @@
 {
   "name": "patramail",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generate transactional email HTML and plain text from structured input",
   "main": "src/index.js",
   "scripts": {
@@ -20,5 +20,13 @@
   "devDependencies": {
     "eslint": "8.57.1",
     "prettier": "3.8.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarthak-gupta229/patramail.git"
+  },
+  "homepage": "https://github.com/sarthak-gupta229/patramail#readme",
+  "bugs": {
+    "url": "https://github.com/sarthak-gupta229/patramail/issues"
   }
 }
