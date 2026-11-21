@@ -1,0 +1,23 @@
+{
+  "name": "patramail",
+  "version": "0.0.0",
+  "description": "Generate transactional email HTML and plain text from structured input",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "src"
+  ],
+  "devDependencies": {
+    "eslint": "8.57.1",
+    "prettier": "3.8.5"
+  }
+}
