@@ -32,3 +32,8 @@
 - Phase 8 — Treat package.json as mandatory npm metadata alongside src, README.md, and LICENSE in the packed artifact.
 - Phase 8 — Install the tarball into an empty directory for the release smoke test because registry installation requires publication.
 - Phase 8 — Use a temporary npm cache for packing because the managed workspace cannot write to the default home cache.
+
+- Event template follow-up — Add six lifecycle templates as builders returning standard PatraMail inputs so callers can customize them and reuse the HTML and text API.
+- Event template follow-up — Add src/events.js, src/sections/event.js, examples/events.js, docs/events.md and test/events.test.js for the preset catalog, rendered event card, examples, contract and regression coverage.
+- Event template follow-up — Add src/mailgen.js and test/mailgen.test.js for a named compatibility adapter that keeps the original PatraMail return types and supports the documented Mailgen action workflow.
+- Event template follow-up — Keep event names, dates and locations user-supplied, format dates as provided, and use English preset copy because the package ships only English labels.

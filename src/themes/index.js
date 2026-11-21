@@ -5,6 +5,9 @@ const themes = Object.freeze({
   dark: require('./dark'),
 });
 
+const validColor = (value) =>
+  typeof value === 'string' && /^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i.test(value);
+
 function resolveTheme(selection = 'default') {
   if (typeof selection === 'string' && Object.hasOwn(themes, selection)) {
     return themes[selection];
@@ -19,10 +22,7 @@ function resolveTheme(selection = 'default') {
   }
 
   for (const key of ['bg', 'card', 'text', 'heading', 'brand']) {
-    if (
-      typeof theme[key] !== 'string' ||
-      !/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i.test(theme[key])
-    ) {
+    if (!validColor(theme[key])) {
       throw new TypeError(
         `theme.${key} must be a three- or six-digit hex color`,
       );
@@ -60,4 +60,4 @@ function buttonText(brand) {
   return luminance > 0.1791287847 ? '#000000' : '#ffffff';
 }
 
-module.exports = { themes, resolveTheme, buttonText };
+module.exports = { themes, resolveTheme, buttonText, validColor };

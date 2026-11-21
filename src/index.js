@@ -1,6 +1,7 @@
 'use strict';
 
 const render = require('./render');
+const { templates } = require('./events');
 const text = require('./text');
 const { escape } = require('./escape');
 const { themes, resolveTheme } = require('./themes');
@@ -58,3 +59,5 @@ module.exports = PatraMail;
 module.exports.PatraMail = PatraMail;
 module.exports.escape = escape;
 module.exports.themes = themes;
+module.exports.templates = templates;
+module.exports.Mailgen = require('./mailgen')(PatraMail);

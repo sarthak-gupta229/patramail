@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Add six branded event templates with matching plain text.
+- Add a Mailgen-style adapter for HTML and plain-text generation.
+
 ## 0.1.0
 
 - Generate responsive transactional email HTML and plain text from one input.

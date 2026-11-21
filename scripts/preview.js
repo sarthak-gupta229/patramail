@@ -12,11 +12,13 @@ const mailer = new PatraMail();
 mkdirSync(previewDirectory, { recursive: true });
 for (const file of readdirSync(exampleDirectory).sort()) {
   if (!file.endsWith('.js')) continue;
-  const email = require(path.join(exampleDirectory, file));
-  const output = path.join(
-    previewDirectory,
-    path.basename(file, '.js') + '.html',
-  );
-  writeFileSync(output, mailer.generateHtml(email));
-  console.log(path.relative(root, output));
+  const example = require(path.join(exampleDirectory, file));
+  const entries = Array.isArray(example)
+    ? example
+    : [[path.basename(file, '.js'), example]];
+  for (const [name, email] of entries) {
+    const output = path.join(previewDirectory, name + '.html');
+    writeFileSync(output, mailer.generateHtml(email));
+    console.log(path.relative(root, output));
+  }
 }

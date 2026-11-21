@@ -2,6 +2,7 @@
 
 const { escape } = require('../escape');
 const actions = require('./actions');
+const event = require('./event');
 const { table } = require('./table');
 const label = require('../i18n');
 
@@ -22,10 +23,11 @@ module.exports = function body(data, theme, lang) {
   const content =
     greeting +
     intro +
+    event(data.event, Boolean(greeting)) +
     actions(data.actions ?? [], theme) +
     table(data.table, theme, label(lang, 'table')) +
     (data.unsafeHtml ?? '') +
-    paragraph(data.outro) +
+    [data.outro ?? []].flat().map(paragraph).join('') +
     paragraph(data.signature);
 
   return content

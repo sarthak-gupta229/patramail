@@ -2,6 +2,7 @@
 
 const { columnNames } = require('./sections/table');
 const label = require('./i18n');
+const { styles } = require('./events');
 
 function tableLines(table) {
   if (!table?.data?.length) return [];
@@ -32,6 +33,16 @@ module.exports = function text(email, lang) {
       ? [label, button.link].filter(Boolean).join(': ')
       : label;
   });
+  const event = body.event;
+  const details = event
+    ? [
+        `${styles[event.kind].label}: ${event.title}`,
+        event.date && `When: ${event.date}`,
+        event.location && `Where: ${event.location}`,
+      ]
+        .filter(Boolean)
+        .join('\n')
+    : '';
   const links = (footer.links ?? []).map(
     ({ text, link }) => `${text}: ${link}`,
   );
@@ -40,9 +51,10 @@ module.exports = function text(email, lang) {
     brand,
     greeting,
     ...[body.intro ?? []].flat(),
+    details,
     ...actions,
     tableLines(body.table).join('\n'),
-    body.outro,
+    ...[body.outro ?? []].flat(),
     body.signature,
     footer.text,
     links.join('\n'),

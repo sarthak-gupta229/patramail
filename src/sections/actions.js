@@ -1,6 +1,7 @@
 'use strict';
 
 const { escape, safeUrl } = require('../escape');
+const { buttonText } = require('../themes');
 
 module.exports = function actions(items, theme) {
   return items
@@ -9,9 +10,15 @@ module.exports = function actions(items, theme) {
       const instruction = instructions
         ? `<p style="margin:0 0 12px;">${escape(instructions)}</p>`
         : '';
+      const background = button?.color ?? theme.brand;
+      const foreground = button?.color
+        ? buttonText(background)
+        : theme.buttonText;
+      const cellClass = button?.color ? '' : ' class="pm-button"';
+      const linkClass = button?.color ? '' : ' class="pm-button-link"';
       const control =
         link && button.text
-          ? `<table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 0 16px;"><tr><td class="pm-button" bgcolor="${theme.brand}" style="background-color:${theme.brand};border-radius:${theme.radius};mso-padding-alt:12px 22px;"><a class="pm-button-link" href="${escape(link)}" style="display:inline-block;padding:12px 22px;color:${theme.buttonText};font-weight:bold;text-decoration:underline;mso-padding-alt:0;">${escape(button.text)}</a></td></tr></table>`
+          ? `<table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 0 16px;"><tr><td${cellClass} bgcolor="${background}" style="background-color:${background};border-radius:${theme.radius};mso-padding-alt:12px 22px;"><a${linkClass} href="${escape(link)}" style="display:inline-block;padding:12px 22px;color:${foreground};font-weight:bold;text-decoration:underline;mso-padding-alt:0;">${escape(button.text)}</a></td></tr></table>`
           : '';
 
       return instruction + control;

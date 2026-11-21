@@ -54,3 +54,50 @@ warnings, Node emits a warning with code `PATRAMAIL_INPUT`.
 - `escape(value)` returns a string that escapes `&`, `<`, `>`, double quotes,
   and single quotes for HTML text and quoted attributes. It casts other
   values to strings and returns `''` for `null` or `undefined`.
+
+## Event templates
+
+The named `templates` export contains six builders that return standard
+PatraMail input objects. Pass the result to any generation method.
+See [event templates](events.md) for names and options.
+
+## Mailgen-style usage
+
+Use the named `Mailgen` export when migrating code that calls
+`generate(email)` for the HTML string and `generatePlaintext(email)` for
+the text string.
+
+```js
+const { Mailgen } = require('patramail');
+
+const generator = new Mailgen({
+  theme: 'default',
+  product: { name: 'Northline Studio', link: 'https://events.example.com' },
+});
+const email = {
+  body: {
+    name: 'Maya',
+    intro: 'We saved you a spot for the Studio Open House.',
+    action: {
+      instructions: 'Please confirm your RSVP.',
+      button: {
+        color: '#49309a',
+        text: 'Confirm RSVP',
+        link: 'https://events.example.com/rsvp',
+      },
+    },
+    outro: ['Questions about the venue?', 'Reply to this email.'],
+  },
+};
+
+const html = generator.generate(email);
+const text = generator.generatePlaintext(email);
+```
+
+The adapter accepts a single `body.action` object or an array,
+`body.title`, `greeting: false`, `signature: false`, and multiline
+`intro` and `outro`. It applies PatraMail's theme registry, schema, and
+escaping rules. Mailgen's own themes, template files, and other
+Mailgen-specific fields are outside this adapter's supported surface.
+
+See the [original Mailgen API example](https://github.com/eladnava/mailgen#usage).

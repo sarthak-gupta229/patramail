@@ -1,6 +1,8 @@
 'use strict';
 
 const { safeUrl } = require('./escape');
+const { styles } = require('./events');
+const { validColor } = require('./themes');
 const { columnNames, validWidth } = require('./sections/table');
 
 function isRecord(value) {
@@ -62,8 +64,18 @@ function validate(email, defaults = {}) {
     link(value.logo, `${path}.logo`, false, true);
   }
 
-  function checkLink(value, path) {
-    if (!object(value, path, ['text', 'link'])) return;
+  function checkLink(value, path, button = false) {
+    if (
+      !object(
+        value,
+        path,
+        button ? ['text', 'link', 'color'] : ['text', 'link'],
+      )
+    )
+      return;
+    if (button && value.color !== undefined && !validColor(value.color)) {
+      errors.push(`${path}.color must be a three- or six-digit hex color`);
+    }
     string(value.text, `${path}.text`, true);
     link(value.link, `${path}.link`, true);
   }
@@ -118,6 +130,7 @@ function validate(email, defaults = {}) {
         'greeting',
         'name',
         'intro',
+        'event',
         'actions',
         'table',
         'unsafeHtml',
@@ -126,28 +139,45 @@ function validate(email, defaults = {}) {
       ])
     )
       return;
-    for (const key of [
-      'greeting',
-      'name',
-      'outro',
-      'signature',
-      'unsafeHtml',
-    ]) {
+    for (const key of ['greeting', 'name', 'signature', 'unsafeHtml']) {
       string(value[key], `email.body.${key}`);
     }
-    if (Array.isArray(value.intro)) {
-      array(value.intro, 'email.body.intro', (line, path) => {
-        if (typeof line !== 'string') errors.push(`${path} must be a string`);
-      });
-    } else {
-      string(value.intro, 'email.body.intro');
+    for (const field of ['intro', 'outro']) {
+      const path = `email.body.${field}`;
+      if (Array.isArray(value[field])) {
+        array(value[field], path, (line, itemPath) => {
+          if (typeof line !== 'string')
+            errors.push(`${itemPath} must be a string`);
+        });
+      } else {
+        string(value[field], path);
+      }
+    }
+    if (
+      value.event !== undefined &&
+      object(value.event, 'email.body.event', [
+        'kind',
+        'title',
+        'date',
+        'location',
+      ])
+    ) {
+      if (
+        typeof value.event.kind !== 'string' ||
+        !Object.hasOwn(styles, value.event.kind)
+      ) {
+        errors.push('email.body.event.kind must be a supported event template');
+      }
+      string(value.event.title, 'email.body.event.title', true);
+      string(value.event.date, 'email.body.event.date');
+      string(value.event.location, 'email.body.event.location');
     }
     if (value.actions !== undefined) {
       array(value.actions, 'email.body.actions', (action, path) => {
         if (!object(action, path, ['instructions', 'button'])) return;
         string(action.instructions, `${path}.instructions`);
         if (action.button !== undefined)
-          checkLink(action.button, `${path}.button`);
+          checkLink(action.button, `${path}.button`, true);
       });
     }
     if (value.table !== undefined) checkTable(value.table, 'email.body.table');

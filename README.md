@@ -30,6 +30,18 @@ along with `message.subject`. PatraMail embeds the preheader in the HTML.
 
 ![Password-reset email preview showing the heading, reset button, and footer](docs/password-reset.png)
 
+## Event templates and Mailgen-style usage
+
+Choose from invitation, registration confirmation, reminder, event update,
+cancellation, and follow-up templates. Each supplies event copy, a color
+palette, and an optional action button. See the
+[event template guide](docs/events.md) for a complete example.
+
+Migrating from Mailgen? Use `const { Mailgen } = require('patramail')` to
+keep the `generate(email)` and `generatePlaintext(email)` pattern. The
+[Mailgen-style example](docs/api.md#mailgen-style-usage) shows the
+constructor options and a single `body.action` object.
+
 ## Send with Nodemailer
 
 Install Nodemailer in your application with `npm install nodemailer`. Copy the
@@ -54,7 +66,7 @@ to your sender and recipient addresses.
 
 - [Password reset](examples/password-reset.js) and [receipt](examples/receipt.js) print HTML when run with Node.
 - [Nodemailer example](examples/with-nodemailer.js) emits a complete MIME message to stdout with Nodemailer installed. Set `SMTP_URL`, `MAIL_FROM`, and `MAIL_TO` to send it using your SMTP provider.
-- `npm run preview` in this repository generates three HTML files under `preview/`.
+- `npm run preview` in this repository generates the example HTML files under `preview/`.
 - [API reference](docs/api.md), [input schema](docs/input-schema.md), and [themes](docs/themes.md).
 
 ## Email-client compatibility
