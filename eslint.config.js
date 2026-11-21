@@ -8,7 +8,10 @@ module.exports = [
       ecmaVersion: 2022,
       sourceType: 'commonjs',
       globals: Object.fromEntries(
-        ['__dirname', 'console', 'process', 'URL'].map((name) => [name, 'readonly']),
+        ['__dirname', 'console', 'process', 'URL', 'Intl'].map((name) => [
+          name,
+          'readonly',
+        ]),
       ),
     },
     rules: {

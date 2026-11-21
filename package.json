@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node --test test/*.test.js",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "preview": "node scripts/preview.js"
   },
   "license": "MIT",
   "type": "commonjs",

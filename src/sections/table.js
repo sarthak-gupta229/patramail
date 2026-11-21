@@ -10,7 +10,7 @@ function columnNames(rows) {
   return [...new Set(rows.flatMap(Object.keys))];
 }
 
-function table(data, theme) {
+function table(data, theme, label) {
   if (!data?.data?.length) return '';
   const columns = columnNames(data.data);
   if (!columns.length) return '';
@@ -20,7 +20,7 @@ function table(data, theme) {
   const headers = columns.map((key) => {
     const width = data.columns?.customWidth?.[key];
     const size = validWidth(width) ? `width:${width};` : '';
-    return `<th scope="col" class="pm-heading" style="text-align:left;${cellStyle}${size}color:${theme.heading};">${escape(key)}</th>`;
+    return `<th scope="col" class="pm-heading" style="text-align:left;box-sizing:border-box;${cellStyle}${size}color:${theme.heading};">${escape(key)}</th>`;
   });
   const row = (values, total = false) =>
     `<tr>${columns
@@ -33,7 +33,7 @@ function table(data, theme) {
       })
       .join('')}</tr>`;
 
-  return `<div class="pm-table-scroll" style="max-width:100%;overflow-x:auto;margin:0 0 16px;"><table class="pm-data-table" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;table-layout:fixed;border-collapse:collapse;"><thead><tr>${headers.join('')}</tr></thead><tbody>${data.data.map((values) => row(values)).join('')}</tbody>${data.total ? `<tfoot>${row(data.total, true)}</tfoot>` : ''}</table></div>`;
+  return `<div class="pm-table-scroll" role="region" aria-label="${escape(label)}" tabindex="0" style="max-width:100%;overflow-x:auto;margin:0 0 16px;"><table class="pm-data-table" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;table-layout:fixed;border-collapse:collapse;"><thead><tr>${headers.join('')}</tr></thead><tbody>${data.data.map((values) => row(values)).join('')}</tbody>${data.total ? `<tfoot>${row(data.total, true)}</tfoot>` : ''}</table></div>`;
 }
 
 module.exports = { table, columnNames, validWidth };

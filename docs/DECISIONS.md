@@ -20,3 +20,8 @@
 - Phase 4 — Omit body.unsafeHtml from plain text because it contains HTML markup; use normal body fields for content both formats need.
 - Phase 4 — Preserve the subject and preheader as transport metadata, returning undefined when omitted.
 - Phase 4 — Use labeled table fields and blank lines between text sections for readability without column alignment.
+- Phase 5 — Validate constructor product defaults merged with per-email product fields, with per-email fields taking precedence.
+- Phase 5 — Treat NODE_ENV values other than production as development, report unknown keys there, and warn on subjects longer than 78 Unicode code points in every environment.
+- Phase 5 — Return validation diagnostics from validate(), throw TypeError on invalid generation input, and emit nonfatal generation warnings through Node.
+- Phase 5 — Canonicalize language tags and fall back to English for missing labels because only English ships in v0.1.0.
+- Phase 5 — Add the runnable examples before the documentation phase because the preview script needs their inputs, and use an in-memory Nodemailer transport by default so the optional example can run locally.

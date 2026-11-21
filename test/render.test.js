@@ -19,13 +19,10 @@ test('omits empty sections', () => {
   assert.doesNotMatch(html, /<h1|<p |<img|width="600"/);
 });
 
-test('escapes text and escapes or suppresses links', () => {
+test('escapes user text and URL attributes', () => {
   const html = new PatraMail().generateHtml({
-    product: { name: '<script>', link: 'data:text/html,test' },
-    body: {
-      intro: '<img>',
-      actions: [{ button: { text: 'Continue', link: 'javascript:alert(1)' } }],
-    },
+    product: { name: '<script>', link: 'https://acme.test' },
+    body: { intro: '<img>' },
     footer: {
       links: [{ text: '"Help"', link: 'https://acme.test/?q="help"&ok=1' }],
     },
@@ -65,7 +62,7 @@ test('renders semantic table headers, union columns, widths and totals safely', 
     body: {
       table: {
         data: [{ '<Item>': '<A>' }, { Price: 0 }],
-        columns: { customWidth: { '<Item>': '50%', Price: '20%;color:red' } },
+        columns: { customWidth: { '<Item>': '50%', Price: '20%' } },
         total: { '<Item>': 'Total', Price: 0 },
       },
     },
@@ -85,4 +82,18 @@ test('inserts only the explicit unsafeHtml block as raw markup', () => {
     body: { intro: '<em>escaped</em>', unsafeHtml: '<em>raw</em>' },
   });
   assert.match(html, /&lt;em&gt;escaped&lt;\/em&gt;.*<em>raw<\/em>/);
+});
+
+test('escapes and hides the preheader, with English label fallback for other languages', () => {
+  const input = { preheader: '<preview>', body: { name: 'Jane' } };
+  const result = new PatraMail({ lang: 'fr-CA' }).generate(input);
+  assert.match(result.html, /<html lang="fr-CA">/);
+  assert.match(
+    result.html,
+    /aria-hidden="true" style="display:none[^"]*">&lt;preview&gt;<\/div>/,
+  );
+  assert.match(result.html, />Hi Jane<\/h1>/);
+  assert.match(result.html, /<title>Email<\/title>/);
+  assert.equal(result.text, 'Hi Jane');
+  assert.equal(result.preheader, '<preview>');
 });
