@@ -10,7 +10,7 @@ Responsive HTML and matching plain text for account emails, events, receipts, an
 [![Zero runtime dependencies](https://img.shields.io/badge/runtime_dependencies-0-52406e)](package.json)
 [![MIT license](https://img.shields.io/badge/license-MIT-365677)](LICENSE)
 
-[GitHub repository](https://github.com/sarthak-gupta229/patramail) · [Quick start](#quick-start) · [Templates](#templates) · [Custom emails](#build-a-custom-email) · [API reference](https://github.com/sarthak-gupta229/patramail/blob/main/docs/api.md)
+[GitHub repository](https://github.com/sarthak-gupta229/patramail) · [Quick start](#quick-start) · [Templates](#templates) · [Custom emails](#build-a-custom-email) · [Documentation](#documentation-guide) · [Contributing](#contributing)
 
 </div>
 
@@ -131,20 +131,19 @@ Set `SMTP_URL`, `MAIL_FROM`, and `MAIL_TO` for your provider.
 The [runnable Nodemailer example](https://github.com/sarthak-gupta229/patramail/blob/main/examples/with-nodemailer.js) can also print
 a complete MIME message locally.
 
-## Preview and develop
+## Documentation guide
 
-```sh
-npm ci
-npm run preview
-npm test
-npm run lint
-```
+| What you want to do                                              | Where to start                                                                                                                                                                                                                                |
+| ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Generate your first email                                        | [Quick start](#quick-start)                                                                                                                                                                                                                   |
+| Choose a template and customize its message                      | [Account templates](https://github.com/sarthak-gupta229/patramail/blob/main/docs/api.md#account-templates) · [Event templates](https://github.com/sarthak-gupta229/patramail/blob/main/docs/events.md)                                        |
+| Build a message with your own sections, buttons, or receipt data | [Custom email example](#build-a-custom-email) · [Input schema](https://github.com/sarthak-gupta229/patramail/blob/main/docs/input-schema.md) · [Receipt example](https://github.com/sarthak-gupta229/patramail/blob/main/examples/receipt.js) |
+| Match your product's branding                                    | [Light, dark, and custom themes](https://github.com/sarthak-gupta229/patramail/blob/main/docs/themes.md)                                                                                                                                      |
+| Migrate from Mailgen or get HTML and plain text in one call      | [API reference](https://github.com/sarthak-gupta229/patramail/blob/main/docs/api.md)                                                                                                                                                          |
+| Send the generated email                                         | [Nodemailer setup](#send-with-nodemailer) · [Runnable example](https://github.com/sarthak-gupta229/patramail/blob/main/examples/with-nodemailer.js)                                                                                           |
 
-Open the generated files in `preview/`. The repository also includes runnable
-[account](https://github.com/sarthak-gupta229/patramail/blob/main/examples/account.js), [event](https://github.com/sarthak-gupta229/patramail/blob/main/examples/events.js),
-[receipt](https://github.com/sarthak-gupta229/patramail/blob/main/examples/receipt.js), and [Mailgen-style](https://github.com/sarthak-gupta229/patramail/blob/main/examples/mailgen-style/index.js)
-examples. To update HTML snapshots intentionally, run
-`UPDATE_SNAPSHOTS=1 npm test` and review the diffs.
+To preview every template locally, run `npm ci` and `npm run preview` from a
+clone of this repository, then open the generated files in `preview/`.
 
 <details>
 <summary>Email-client compatibility</summary>
@@ -157,5 +156,13 @@ Classic Outlook may show square corners. Dark-mode recoloring and wide-table
 scrolling vary by client. [Dark-mode support](https://www.caniemail.com/features/css-at-media-prefers-color-scheme/) · [Overflow support](https://www.caniemail.com/features/css-overflow/)
 
 </details>
+
+## Contributing
+
+Bug reports, documentation improvements, and template contributions are welcome.
+Run `npm ci`, `npm test`, and `npm run lint` before opening a pull request.
+For a visual change, generate the previews and include before-and-after screenshots.
+
+[Contribution guide](https://github.com/sarthak-gupta229/patramail/blob/main/CONTRIBUTING.md) · [Report an issue](https://github.com/sarthak-gupta229/patramail/issues)
 
 [Changelog](https://github.com/sarthak-gupta229/patramail/blob/main/CHANGELOG.md) · [MIT License](https://github.com/sarthak-gupta229/patramail/blob/main/LICENSE)

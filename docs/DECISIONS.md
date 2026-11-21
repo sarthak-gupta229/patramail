@@ -47,3 +47,4 @@
 - npm listing follow-up — Use absolute public GitHub links and hosted preview images so npm readers can reach assets and documentation outside the tarball.
 - npm listing follow-up — Prepare version 0.1.1 because npm updates the package-page README when a new version is published.
 - Account preview follow-up — Add docs/email-verification.png and update docs/password-reset.png with screenshots of the built-in account templates for the README comparison.
+- Documentation follow-up — Add CONTRIBUTING.md for checkout setup, issue reports, rendering checks, and pull requests, with entry points in the README.
