@@ -1,7 +1,10 @@
 # Event email templates
 
-PatraMail ships six event templates. Each has its own accent palette, status
-label, subject, preheader, and suggested button label. Every template produces
+PatraMail ships six event templates. Each has a status label, a coordinated
+accent, and preset copy. The built-in light theme uses a warm paper background;
+the dark theme uses charcoal. Event names use a serif headline, and the date
+and location stack on small screens. Custom themes still control the brand
+color and main palette. Every template produces
 HTML and plain text from the same event details.
 
 | Template                 | When to use it                               | Default button       |

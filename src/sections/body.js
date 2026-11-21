@@ -2,7 +2,6 @@
 
 const { escape } = require('../escape');
 const actions = require('./actions');
-const event = require('./event');
 const { table } = require('./table');
 const label = require('../i18n');
 
@@ -17,20 +16,22 @@ module.exports = function body(data, theme, lang) {
     .filter(Boolean)
     .join(' ');
   const greeting = salutation
-    ? `<h1 class="pm-heading" style="margin:0 0 16px;color:${theme.heading};font-size:24px;line-height:1.3;">${escape(salutation)}</h1>`
+    ? data.event
+      ? `<p class="pm-heading" style="margin:0 0 8px;color:${theme.heading};font-weight:bold;">${escape(salutation)}</p>`
+      : `<h1 class="pm-heading" style="margin:0 0 16px;color:${theme.heading};font-size:24px;line-height:1.3;">${escape(salutation)}</h1>`
     : '';
   const intro = [data.intro ?? []].flat().map(paragraph).join('');
   const content =
     greeting +
     intro +
-    event(data.event, Boolean(greeting)) +
     actions(data.actions ?? [], theme) +
     table(data.table, theme, label(lang, 'table')) +
     (data.unsafeHtml ?? '') +
     [data.outro ?? []].flat().map(paragraph).join('') +
     paragraph(data.signature);
 
-  return content
-    ? `<tr><td style="padding:24px 24px 8px;">${content}</td></tr>`
-    : '';
+  const cell = data.event
+    ? 'class="pm-event-inset" style="padding:24px 32px 24px;overflow-wrap:anywhere;"'
+    : 'style="padding:24px 24px 8px;"';
+  return content ? `<tr><td ${cell}>${content}</td></tr>` : '';
 };

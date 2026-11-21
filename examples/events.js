@@ -5,7 +5,7 @@ const { PatraMail, templates } = require('..');
 const details = {
   name: 'Studio Open House',
   recipient: 'Maya',
-  date: 'Saturday, December 12 at 4:00 p.m. IST',
+  date: 'Sat, Dec 12 · 4:00 p.m. IST',
   location: 'Northline Studio, Bengaluru',
 };
 
@@ -35,7 +35,7 @@ module.exports = [
     'event-update',
     templates.update({
       ...details,
-      date: 'Saturday, December 12 at 5:00 p.m. IST',
+      date: 'Sat, Dec 12 · 5:00 p.m. IST',
       intro: 'Doors now open at 5:00 p.m. IST. The venue is unchanged.',
       link: 'https://events.example.com/details',
     }),

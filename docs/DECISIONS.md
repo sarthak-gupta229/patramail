@@ -39,3 +39,5 @@
 - Event template follow-up — Keep event names, dates and locations user-supplied, format dates as provided, and use English preset copy because the package ships only English labels.
 - Mailgen-style follow-up — Make the Mailgen-style constructor the default CommonJS export so callers can switch the package name and keep their generation calls. Keep combined output under the named PatraMail export.
 - Mailgen-style follow-up — Add examples/mailgen-style/index.js as a standalone caller example that writes its own preview file, separate from the structured fixtures used by npm run preview.
+- Event redesign — Use shared paper and charcoal surfaces, serif event titles, and restrained status accents so the event identity and details lead each message.
+- Event redesign — Reuse the caller's custom theme colors and the existing button component, so themed event emails and custom action colors still work.

@@ -2,7 +2,7 @@
 
 const { escape, safeUrl } = require('../escape');
 
-module.exports = function footer(data, product, theme) {
+module.exports = function footer(data, product, theme, isEvent) {
   const links = (data.links ?? []).flatMap(({ text, link }) => {
     const url = safeUrl(link);
     return text && url
@@ -22,7 +22,8 @@ module.exports = function footer(data, product, theme) {
     .map((value) => `<p style="margin:0 0 8px;">${value}</p>`)
     .join('');
 
-  return content
-    ? `<tr><td align="center" style="padding:16px 24px;font-size:13px;">${content}</td></tr>`
-    : '';
+  const cell = isEvent
+    ? `class="pm-event-footer pm-event-inset" style="padding:16px 32px;border-top:1px solid ${theme.eventRule};font-size:13px;"`
+    : 'align="center" style="padding:16px 24px;font-size:13px;"';
+  return content ? `<tr><td ${cell}>${content}</td></tr>` : '';
 };
