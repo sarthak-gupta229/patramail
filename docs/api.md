@@ -1,8 +1,7 @@
 # API reference
 
 ```js
-const PatraMail = require('patramail');
-const { PatraMail: NamedPatraMail, themes, escape } = require('patramail');
+const { PatraMail, themes, escape } = require('patramail');
 ```
 
 ## `new PatraMail(options?)`
@@ -49,7 +48,7 @@ warnings, Node emits a warning with code `PATRAMAIL_INPUT`.
 
 ## Named exports
 
-- `PatraMail` is the same class as the default CommonJS export.
+- `PatraMail` is the constructor for the combined-output API documented above.
 - `themes` is a frozen registry with frozen `default` and `dark` palettes.
 - `escape(value)` returns a string that escapes `&`, `<`, `>`, double quotes,
   and single quotes for HTML text and quoted attributes. It casts other
@@ -63,14 +62,15 @@ See [event templates](events.md) for names and options.
 
 ## Mailgen-style usage
 
-Use the named `Mailgen` export when migrating code that calls
+The default CommonJS export, also available as `Mailgen`, supports code that calls
 `generate(email)` for the HTML string and `generatePlaintext(email)` for
-the text string.
+the text string. It also exposes `generateHtml(email)`,
+`generatePlainText(email)`, and `validate(email)` with the same input support.
 
 ```js
-const { Mailgen } = require('patramail');
+const PatraMail = require('patramail');
 
-const generator = new Mailgen({
+const generator = new PatraMail({
   theme: 'default',
   product: { name: 'Northline Studio', link: 'https://events.example.com' },
 });

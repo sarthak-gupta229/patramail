@@ -12,21 +12,39 @@ npm install patramail
 
 ```js
 const PatraMail = require('patramail');
-const mailer = new PatraMail({
-  product: { name: 'Acme', link: 'https://acme.test' },
-});
-const message = mailer.generate({
-  subject: 'Order confirmed',
-  preheader: 'Your order #1042 is confirmed.',
-  body: {
-    name: 'Jane',
-    intro: 'We received your payment for order #1042.',
+
+const mailGenerator = new PatraMail({
+  theme: 'default',
+  product: {
+    name: 'Acme',
+    link: 'https://acme.test',
   },
 });
+
+const email = {
+  body: {
+    name: 'Jane',
+    intro: 'Welcome to Acme! Your account is ready.',
+    action: {
+      instructions: 'Confirm your email address to get started.',
+      button: {
+        color: '#1746a2',
+        text: 'Confirm your account',
+        link: 'https://acme.test/confirm?token=example',
+      },
+    },
+    outro: 'If you have questions, reply to this email.',
+  },
+};
+
+const emailBody = mailGenerator.generate(email);
+const emailText = mailGenerator.generatePlaintext(email);
+
+require('node:fs').writeFileSync('preview.html', emailBody, 'utf8');
 ```
 
-`message.html` and `message.text` are ready to pass to your email transport
-along with `message.subject`. PatraMail embeds the preheader in the HTML.
+Open `preview.html` in a browser, or pass `emailBody` and `emailText` to your
+email transport.
 
 ![Password-reset email preview showing the heading, reset button, and footer](docs/password-reset.png)
 
@@ -37,15 +55,14 @@ cancellation, and follow-up templates. Each supplies event copy, a color
 palette, and an optional action button. See the
 [event template guide](docs/events.md) for a complete example.
 
-Migrating from Mailgen? Use `const { Mailgen } = require('patramail')` to
-keep the `generate(email)` and `generatePlaintext(email)` pattern. The
-[Mailgen-style example](docs/api.md#mailgen-style-usage) shows the
-constructor options and a single `body.action` object.
+Use `const { PatraMail } = require('patramail')` when you want the
+combined `{ html, text, subject, preheader }` result in one call.
+See the [API reference](docs/api.md).
 
 ## Send with Nodemailer
 
 Install Nodemailer in your application with `npm install nodemailer`. Copy the
-quick start into an async function, then use the message with your SMTP settings.
+quick start into an async function, then use the generated HTML and text with your SMTP settings.
 
 ```js
 const nodemailer = require('nodemailer');
@@ -53,9 +70,9 @@ const transport = nodemailer.createTransport(process.env.SMTP_URL);
 await transport.sendMail({
   from: process.env.MAIL_FROM,
   to: process.env.MAIL_TO,
-  subject: message.subject,
-  html: message.html,
-  text: message.text,
+  subject: 'Confirm your Acme account',
+  html: emailBody,
+  text: emailText,
 });
 ```
 
@@ -64,6 +81,7 @@ to your sender and recipient addresses.
 
 ## Examples and reference
 
+- [Mailgen-style quick start](examples/mailgen-style/index.js) writes a local HTML preview and prints the plain-text version.
 - [Password reset](examples/password-reset.js) and [receipt](examples/receipt.js) print HTML when run with Node.
 - [Nodemailer example](examples/with-nodemailer.js) emits a complete MIME message to stdout with Nodemailer installed. Set `SMTP_URL`, `MAIL_FROM`, and `MAIL_TO` to send it using your SMTP provider.
 - `npm run preview` in this repository generates the example HTML files under `preview/`.

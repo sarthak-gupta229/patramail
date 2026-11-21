@@ -2,7 +2,7 @@
 
 const assert = require('node:assert/strict');
 const test = require('node:test');
-const { Mailgen } = require('..');
+const Mailgen = require('..');
 
 test('supports the Mailgen constructor and HTML/plain-text call pattern', () => {
   const generator = new Mailgen({
@@ -29,6 +29,12 @@ test('supports the Mailgen constructor and HTML/plain-text call pattern', () => 
     generator.generatePlaintext(email),
     /Reserve a spot: https:\/\/example.com\/rsvp\n\nNeed help\?\n\nReply to us\./,
   );
+  assert.equal(generator.generateHtml(email), generator.generate(email));
+  assert.equal(
+    generator.generatePlainText(email),
+    generator.generatePlaintext(email),
+  );
+  assert.equal(generator.validate(email).valid, true);
   assert.equal(email.body.actions, undefined);
 });
 
@@ -75,4 +81,14 @@ test('applies native URL and color validation to Mailgen actions', () => {
     () => generator.generate(email),
     /button\.color[^\n]*\n.*button\.link/,
   );
+});
+
+test('exposes the combined-output API and templates as named exports', () => {
+  const { PatraMail, templates } = Mailgen;
+  assert.equal(Mailgen.Mailgen, Mailgen);
+  const email = templates.invitation({ name: 'Open House' });
+  const result = new PatraMail().generate(email);
+  assert.equal(new Mailgen().generate(email), result.html);
+  assert.equal(new Mailgen().generatePlaintext(email), result.text);
+  assert.equal(typeof result.subject, 'string');
 });

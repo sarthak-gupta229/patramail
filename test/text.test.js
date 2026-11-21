@@ -2,7 +2,7 @@
 
 const assert = require('node:assert/strict');
 const test = require('node:test');
-const PatraMail = require('..');
+const { PatraMail } = require('..');
 const passwordReset = require('./fixtures/password-reset');
 const receipt = require('./fixtures/receipt');
 

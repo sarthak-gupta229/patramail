@@ -44,6 +44,6 @@ module.exports = {
 };
 
 if (require.main === module) {
-  const PatraMail = require('..');
+  const { PatraMail } = require('..');
   console.log(new PatraMail().generateHtml(module.exports));
 }

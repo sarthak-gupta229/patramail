@@ -14,8 +14,7 @@ HTML and plain text from the same event details.
 | `templates.followUp`     | Thank attendees and share resources          | View event resources |
 
 ```js
-const PatraMail = require('patramail');
-const { templates } = PatraMail;
+const { PatraMail, templates } = require('patramail');
 
 const mailer = new PatraMail({ product: { name: 'Northline Studio' } });
 const email = templates.invitation({

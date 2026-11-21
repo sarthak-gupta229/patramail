@@ -37,3 +37,5 @@
 - Event template follow-up — Add src/events.js, src/sections/event.js, examples/events.js, docs/events.md and test/events.test.js for the preset catalog, rendered event card, examples, contract and regression coverage.
 - Event template follow-up — Add src/mailgen.js and test/mailgen.test.js for a named compatibility adapter that keeps the original PatraMail return types and supports the documented Mailgen action workflow.
 - Event template follow-up — Keep event names, dates and locations user-supplied, format dates as provided, and use English preset copy because the package ships only English labels.
+- Mailgen-style follow-up — Make the Mailgen-style constructor the default CommonJS export so callers can switch the package name and keep their generation calls. Keep combined output under the named PatraMail export.
+- Mailgen-style follow-up — Add examples/mailgen-style/index.js as a standalone caller example that writes its own preview file, separate from the structured fixtures used by npm run preview.

@@ -26,7 +26,7 @@ the palette, check that body text, headings, and links meet 4.5:1 contrast
 against the card background.
 
 ```js
-const PatraMail = require('patramail');
+const { PatraMail } = require('patramail');
 
 const mailer = new PatraMail({
   theme: { brand: '#075444', font: 'Georgia, serif', radius: '0px' },
@@ -36,5 +36,5 @@ const html = mailer.generateHtml({
 });
 ```
 
-To build on the dark palette, spread `PatraMail.themes.dark` into your theme
+To build on the dark palette, import `themes` from `require('patramail')` and spread `themes.dark` into your theme
 object before applying overrides.

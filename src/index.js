@@ -55,9 +55,11 @@ class PatraMail {
   }
 }
 
-module.exports = PatraMail;
+const Mailgen = require('./mailgen')(PatraMail);
+
+module.exports = Mailgen;
 module.exports.PatraMail = PatraMail;
 module.exports.escape = escape;
 module.exports.themes = themes;
 module.exports.templates = templates;
-module.exports.Mailgen = require('./mailgen')(PatraMail);
+module.exports.Mailgen = Mailgen;

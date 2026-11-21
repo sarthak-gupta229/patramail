@@ -30,10 +30,22 @@ module.exports = (PatraMail) =>
     }
 
     generate(email) {
-      return this.#mailer.generateHtml(toPatraMail(email));
+      return this.generateHtml(email);
     }
 
     generatePlaintext(email) {
+      return this.generatePlainText(email);
+    }
+
+    generateHtml(email) {
+      return this.#mailer.generateHtml(toPatraMail(email));
+    }
+
+    generatePlainText(email) {
       return this.#mailer.generatePlainText(toPatraMail(email));
+    }
+
+    validate(email) {
+      return this.#mailer.validate(toPatraMail(email));
     }
   };

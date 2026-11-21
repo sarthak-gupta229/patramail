@@ -2,7 +2,7 @@
 
 const { mkdirSync, readdirSync, writeFileSync } = require('node:fs');
 const path = require('node:path');
-const PatraMail = require('..');
+const { PatraMail } = require('..');
 
 const root = path.resolve(__dirname, '..');
 const exampleDirectory = path.join(root, 'examples');

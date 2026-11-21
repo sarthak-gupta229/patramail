@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const { readFileSync, writeFileSync } = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
-const PatraMail = require('..');
+const { PatraMail, themes } = require('..');
 const passwordReset = require('./fixtures/password-reset');
 
 const fixtures = {
@@ -174,7 +174,7 @@ test('keeps built-in headings, text, links and button labels at 4.5:1 or better'
             : ((component + 0.055) / 1.055) ** 2.4;
         return sum + linear * [0.2126, 0.7152, 0.0722][index];
       }, 0);
-  for (const theme of Object.values(PatraMail.themes)) {
+  for (const theme of Object.values(themes)) {
     for (const [foreground, background] of [
       [theme.text, theme.card],
       [theme.heading, theme.card],

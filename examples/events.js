@@ -1,7 +1,6 @@
 'use strict';
 
-const PatraMail = require('..');
-const { templates } = PatraMail;
+const { PatraMail, templates } = require('..');
 
 const details = {
   name: 'Studio Open House',

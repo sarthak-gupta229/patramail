@@ -3,7 +3,8 @@
 ## Unreleased
 
 - Add six branded event templates with matching plain text.
-- Add a Mailgen-style adapter for HTML and plain-text generation.
+- Make the default CommonJS export compatible with Mailgen's HTML and plain-text call pattern.
+- Preserve the combined-output API under the named `PatraMail` export.
 
 ## 0.1.0
 

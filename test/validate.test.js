@@ -2,7 +2,7 @@
 
 const assert = require('node:assert/strict');
 const test = require('node:test');
-const PatraMail = require('..');
+const { PatraMail } = require('..');
 
 test('returns path-specific validation errors without throwing', () => {
   const mailer = new PatraMail();

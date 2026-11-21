@@ -2,13 +2,13 @@
 
 const assert = require('node:assert/strict');
 const test = require('node:test');
-const PatraMail = require('..');
+const { PatraMail, templates } = require('..');
 
 test('generates distinct event templates with HTML, links and matching plain text', () => {
   const mailer = new PatraMail();
   const accents = new Set();
   const subjects = new Set();
-  for (const [kind, template] of Object.entries(PatraMail.templates)) {
+  for (const [kind, template] of Object.entries(templates)) {
     const email = template({
       name: '<Open House>',
       recipient: 'Maya',
@@ -40,7 +40,7 @@ test('generates distinct event templates with HTML, links and matching plain tex
 
 test('supports overrides and omits absent event details and buttons', () => {
   const mailer = new PatraMail({ theme: 'dark' });
-  const email = PatraMail.templates.cancellation({
+  const email = templates.cancellation({
     name: 'Open House',
     subject: 'Rescheduling',
     preheader: 'New date to follow',
@@ -52,13 +52,10 @@ test('supports overrides and omits absent event details and buttons', () => {
   assert.match(html, /Open House<\/h1>/);
   assert.doesNotMatch(html, /class="pm-button"|>When<|>Where</);
   assert.match(text, /New date to follow/);
-  assert.throws(
-    () => PatraMail.templates.invitation({ name: ' ' }),
-    /event name/,
-  );
+  assert.throws(() => templates.invitation({ name: ' ' }), /event name/);
   assert.throws(
     () =>
-      PatraMail.templates.invitation({
+      templates.invitation({
         name: 'Open House',
         buttonText: 'RSVP',
       }),

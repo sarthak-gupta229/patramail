@@ -22,7 +22,7 @@ const email = {
 module.exports = email;
 
 if (require.main === module) {
-  const PatraMail = require('..');
+  const { PatraMail } = require('..');
   const nodemailer = require('nodemailer');
   const { SMTP_URL, MAIL_FROM, MAIL_TO } = process.env;
 
