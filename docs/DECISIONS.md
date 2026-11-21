@@ -17,3 +17,6 @@
 - Phase 3 — Use first-seen row keys as table headings, string or finite number cells, and a matching optional total object so sparse receipt rows work.
 - Phase 3 — Accept whole-number column widths of 1–100% or 1–999px to prevent CSS injection.
 - Phase 3 — Place the table and one trusted body.unsafeHtml string before the outro so the draft schema can express totals and rich blocks.
+- Phase 4 — Omit body.unsafeHtml from plain text because it contains HTML markup; use normal body fields for content both formats need.
+- Phase 4 — Preserve the subject and preheader as transport metadata, returning undefined when omitted.
+- Phase 4 — Use labeled table fields and blank lines between text sections for readability without column alignment.
