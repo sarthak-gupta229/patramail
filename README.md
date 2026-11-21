@@ -48,6 +48,51 @@ email transport.
 
 ![Password-reset email preview showing the heading, reset button, and footer](docs/password-reset.png)
 
+## Build a custom email
+
+Pass your own `body` to `generate()`. You can set the heading, write
+multiple paragraphs, add one or more buttons, and include footer links.
+Use a theme object to set your brand color and other styling.
+
+```js
+const PatraMail = require('patramail');
+const mailer = new PatraMail({
+  theme: { brand: '#30564b', radius: '8px' },
+  product: { name: 'Acme', link: 'https://acme.test' },
+});
+
+const email = {
+  subject: 'Your monthly statement is ready',
+  preheader: 'Review your statement and billing settings.',
+  body: {
+    title: 'Your statement is ready',
+    intro: [
+      'Your monthly statement is available.',
+      'You can view or download it in your account.',
+    ],
+    action: [
+      {
+        button: {
+          text: 'View statement',
+          link: 'https://acme.test/billing/statement',
+        },
+      },
+      { button: { text: 'Manage billing', link: 'https://acme.test/billing' } },
+    ],
+    outro: 'Reply to this email if you have questions.',
+  },
+  footer: {
+    links: [{ text: 'Contact support', link: 'mailto:help@acme.test' }],
+  },
+};
+
+const html = mailer.generate(email);
+const text = mailer.generatePlaintext(email);
+```
+
+See the [Mailgen-style API](docs/api.md#mailgen-style-usage),
+[input schema](docs/input-schema.md), and [theme options](docs/themes.md).
+
 ## Account and event templates
 
 Use `templates.passwordReset`, `templates.emailVerification`, or
