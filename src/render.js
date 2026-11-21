@@ -5,22 +5,31 @@ const header = require('./sections/header');
 const body = require('./sections/body');
 const footer = require('./sections/footer');
 
-const defaultTheme = {
-  bg: '#f3f4f6',
-  card: '#ffffff',
-  text: '#212936',
-  heading: '#111827',
-  brand: '#1746a2',
-  font: 'Arial, Helvetica, sans-serif',
-  radius: '6px',
-  buttonText: '#ffffff',
-};
+const { themes, buttonText } = require('./themes');
 
-module.exports = function render(email, theme = defaultTheme, lang = 'en') {
+module.exports = function render(email, theme, lang) {
+  const automaticDark = theme === themes.default;
+  const scheme = automaticDark
+    ? 'light dark'
+    : theme === themes.dark
+      ? 'dark'
+      : 'light';
+  const dark = themes.dark;
+  const darkStyles = automaticDark
+    ? `
+@media (prefers-color-scheme: dark) {
+  .pm-bg { background-color: ${dark.bg} !important; }
+  .pm-card { background-color: ${dark.card} !important; color: ${dark.text} !important; }
+  .pm-heading { color: ${dark.heading} !important; }
+  .pm-brand { color: ${dark.brand} !important; }
+  .pm-button { background-color: ${dark.brand} !important; }
+  .pm-button-link { color: ${buttonText(dark.brand)} !important; }
+}`
+    : '';
   const product = email.product ?? {};
   const rows =
     header(product, theme) +
-    body(email.body ?? {}, theme) +
+    body(email.body ?? {}, { ...theme, buttonText: buttonText(theme.brand) }) +
     footer(email.footer ?? {}, product, theme);
   const card = rows
     ? `<!--[if mso]><table role="presentation" width="600" align="center" cellspacing="0" cellpadding="0" border="0"><tr><td><![endif]-->
@@ -35,12 +44,14 @@ module.exports = function render(email, theme = defaultTheme, lang = 'en') {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="${scheme}">
+<meta name="supported-color-schemes" content="${scheme}">
 <title>${escape(email.subject ?? product.name)}</title>
 <style>
 @media only screen and (max-width: 620px) {
   .pm-card { width: 100% !important; }
   .pm-outer { padding: 12px !important; }
-}
+}${darkStyles}
 </style>
 </head>
 <body class="pm-bg" style="margin:0;padding:0;background-color:${theme.bg};">

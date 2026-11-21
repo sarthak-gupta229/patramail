@@ -11,3 +11,6 @@
 - Phase 1 — Size logos at 160 × 48 with the product name as alt text because the draft has no image dimensions.
 - Phase 1 — Support footer.address as optional text because the project structure calls for an address.
 - Phase 1 — Use environment variable UPDATE_SNAPSHOTS=1 for deliberate snapshot updates across supported Node versions.
+- Phase 2 — Accept only hex colors, unquoted system font lists and bounded integer pixel radii so theme CSS can be interpolated safely.
+- Phase 2 — Apply automatic dark styling only to the named default theme so explicit dark and custom palettes retain their selected colors.
+- Phase 2 — Choose black or white button text from the brand color's luminance so button text reaches 4.5:1 contrast.

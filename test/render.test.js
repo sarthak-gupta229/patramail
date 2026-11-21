@@ -35,3 +35,27 @@ test('escapes text and escapes or suppresses links', () => {
   assert.match(html, /q=&quot;help&quot;&amp;ok=1/);
   assert.doesNotMatch(html, /<script>|<img>|javascript:|data:text/);
 });
+
+test('renders the dark palette inline and gives the default a dark media query', () => {
+  const dark = new PatraMail({ theme: 'dark' }).generateHtml(passwordReset);
+  assert.match(dark, /bgcolor="#1f2937"/);
+  assert.doesNotMatch(dark, /prefers-color-scheme/);
+  const light = new PatraMail().generateHtml(passwordReset);
+  assert.match(light, /prefers-color-scheme: dark/);
+  assert.match(light, /name="color-scheme" content="light dark"/);
+});
+
+test('merges custom themes and rejects values outside the CSS grammar', () => {
+  const custom = new PatraMail({
+    theme: { brand: '#abc', radius: '0px' },
+  }).generateHtml(passwordReset);
+  assert.match(custom, /bgcolor="#ffffff"/);
+  assert.match(custom, /background-color:#abc;border-radius:0px/);
+  assert.match(custom, /color:#000000;font-weight:bold/);
+  assert.throws(() => new PatraMail({ theme: 'toString' }), TypeError);
+  assert.throws(() => new PatraMail({ theme: { bg: 'red;"' } }), /theme.bg/);
+  assert.throws(
+    () => new PatraMail({ theme: { font: 'Arial; color:red' } }),
+    /theme.font/,
+  );
+});
