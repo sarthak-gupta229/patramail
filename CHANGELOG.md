@@ -3,7 +3,7 @@
 ## 0.1.1
 
 - Add GitHub repository, homepage, and issue tracker links to the npm package metadata.
-- Show email previews and link to documentation from the npm README.
+- Show event, password-reset, and email-verification previews and link to documentation from the npm README.
 
 ## 0.1.0
 

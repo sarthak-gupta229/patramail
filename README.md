@@ -47,12 +47,9 @@ one call, use the [named `PatraMail` constructor](https://github.com/sarthak-gup
 
 ## Templates
 
-<details>
-<summary>Preview a password-reset email</summary>
-
-![Password-reset email with a reset link and expiration notice](https://raw.githubusercontent.com/sarthak-gupta229/patramail/main/docs/password-reset.png)
-
-</details>
+| Password reset                                                                                                                                  | Email verification                                                                                                                                      |
+| ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Password-reset email with a Reset password button](https://raw.githubusercontent.com/sarthak-gupta229/patramail/main/docs/password-reset.png) | ![Verification email with a Verify email address button](https://raw.githubusercontent.com/sarthak-gupta229/patramail/main/docs/email-verification.png) |
 
 | Account templates                          | Event templates                              |
 | ------------------------------------------ | -------------------------------------------- |

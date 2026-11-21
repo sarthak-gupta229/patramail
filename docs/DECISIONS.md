@@ -46,3 +46,4 @@
 - README follow-up — Add docs/events-preview.png using generated light and dark event previews to show the actual output on GitHub.
 - npm listing follow-up — Use absolute public GitHub links and hosted preview images so npm readers can reach assets and documentation outside the tarball.
 - npm listing follow-up — Prepare version 0.1.1 because npm updates the package-page README when a new version is published.
+- Account preview follow-up — Add docs/email-verification.png and update docs/password-reset.png with screenshots of the built-in account templates for the README comparison.
