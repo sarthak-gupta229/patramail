@@ -20,6 +20,18 @@ for (const [name, [subject, button]] of Object.entries(cases)) {
     assert.ok(result.preheader.length);
     assert.ok(result.html.includes(subject));
     assert.ok(result.html.includes(`>${button}</a>`));
+    assert.match(
+      result.html,
+      /<table role="presentation"[^>]*align="center" style="margin:0 auto 16px;"><tr><td class="pm-button"/,
+    );
+    assert.equal(
+      new PatraMail().validate({
+        body: {
+          actions: [{ button: { text: button, link, align: 'invalid' } }],
+        },
+      }).valid,
+      false,
+    );
     assert.match(result.html, /Hi &lt;Jane&gt;,/);
     assert.match(result.html, /token=example&amp;source=email/);
     assert.ok(result.text.includes(`${button}: ${link}`));
