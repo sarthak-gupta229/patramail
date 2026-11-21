@@ -70,3 +70,28 @@ test('warns on development unknown fields and long subjects', () => {
     else process.env.NODE_ENV = previous;
   }
 });
+
+test('handles sparse inputs, dynamic table keys and nested warnings', () => {
+  const mailer = new PatraMail();
+  const input = {
+    body: {
+      intro: [''],
+      table: {
+        data: [JSON.parse('{"__proto__": "&", "constructor": 0}')],
+        total: { unused: 'extra' },
+      },
+      actions: [],
+    },
+  };
+  assert.equal(mailer.validate(input).valid, true);
+  if (process.env.NODE_ENV !== 'production') {
+    assert.deepEqual(mailer.validate(input).warnings, [
+      'Unknown column email.body.table.total.unused',
+    ]);
+  }
+  assert.equal(mailer.validate({ body: { intro: Array(1) } }).valid, false);
+  assert.equal(
+    mailer.validate({ body: { table: { data: [], total: {} } } }).valid,
+    false,
+  );
+});

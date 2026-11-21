@@ -25,3 +25,5 @@
 - Phase 5 — Return validation diagnostics from validate(), throw TypeError on invalid generation input, and emit nonfatal generation warnings through Node.
 - Phase 5 — Canonicalize language tags and fall back to English for missing labels because only English ships in v0.1.0.
 - Phase 5 — Add the runnable examples before the documentation phase because the preview script needs their inputs, and use an in-memory Nodemailer transport by default so the optional example can run locally.
+- Phase 6 — Use Node 18 and 22 locally, Chrome for layout, and Ethereal for synthetic SMTP delivery because no hosted CI, target inboxes, or client-rendering service account was available.
+- Phase 6 — Require explicit HTTP(S) authority syntax and a non-empty contact link target because URL parsers also accept forms that can resolve differently in HTML.

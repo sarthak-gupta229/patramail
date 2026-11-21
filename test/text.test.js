@@ -6,7 +6,11 @@ const PatraMail = require('..');
 const passwordReset = require('./fixtures/password-reset');
 const receipt = require('./fixtures/receipt');
 
-for (const [name, fixture] of Object.entries({ passwordReset, receipt })) {
+for (const [name, fixture] of Object.entries({
+  passwordReset,
+  receipt,
+  withNodemailer: require('./fixtures/with-nodemailer'),
+})) {
   test(`produces both formats and untouched metadata for ${name}`, () => {
     const mailer = new PatraMail();
     const result = mailer.generate(fixture);
@@ -46,7 +50,7 @@ test('prints table and total values as labeled fields', () => {
   const text = new PatraMail().generatePlainText(receipt);
   assert.match(
     text,
-    /Item: Notebook \| Quantity: 2 \| Unit price: \$6.00 \| Amount: \$12.00/,
+    /Item: Notebook \| Qty: 2 \| Unit price: \$6.00 \| Amount: \$12.00/,
   );
   assert.match(text, /Item: Total \| Amount: \$32.00/);
 });

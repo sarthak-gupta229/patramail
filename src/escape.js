@@ -21,10 +21,19 @@ function safeUrl(value, image = false) {
   }
 
   const url = parseUrl(value);
-  const protocols = image
-    ? ['https:', 'http:']
-    : ['https:', 'http:', 'mailto:', 'tel:'];
-  return url && protocols.includes(url.protocol) ? value : '';
+  if (!url) return '';
+  if (url.protocol === 'https:' || url.protocol === 'http:') {
+    return /^https?:\/\/[^/\\?#]+/i.test(value) &&
+      !value.includes('\\') &&
+      url.hostname
+      ? value
+      : '';
+  }
+  return !image &&
+    (url.protocol === 'mailto:' || url.protocol === 'tel:') &&
+    url.pathname
+    ? value
+    : '';
 }
 
 function parseUrl(value) {

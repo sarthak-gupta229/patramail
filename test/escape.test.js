@@ -19,6 +19,11 @@ test('rejects unsafe, relative, and obfuscated URLs', () => {
     '//acme.test',
     '/relative',
     'file:///tmp/document',
+    'https:relative-looking',
+    'https:///acme.test',
+    'https://acme.test\\unsafe',
+    'mailto:',
+    'tel:',
   ]) {
     assert.equal(safeUrl(value), '');
   }

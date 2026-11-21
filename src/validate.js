@@ -136,9 +136,9 @@ function validate(email, defaults = {}) {
       string(value[key], `email.body.${key}`);
     }
     if (Array.isArray(value.intro)) {
-      array(value.intro, 'email.body.intro', (line, path) =>
-        string(line, path, true),
-      );
+      array(value.intro, 'email.body.intro', (line, path) => {
+        if (typeof line !== 'string') errors.push(`${path} must be a string`);
+      });
     } else {
       string(value.intro, 'email.body.intro');
     }
