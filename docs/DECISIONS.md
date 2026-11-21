@@ -14,3 +14,6 @@
 - Phase 2 — Accept only hex colors, unquoted system font lists and bounded integer pixel radii so theme CSS can be interpolated safely.
 - Phase 2 — Apply automatic dark styling only to the named default theme so explicit dark and custom palettes retain their selected colors.
 - Phase 2 — Choose black or white button text from the brand color's luminance so button text reaches 4.5:1 contrast.
+- Phase 3 — Use first-seen row keys as table headings, string or finite number cells, and a matching optional total object so sparse receipt rows work.
+- Phase 3 — Accept whole-number column widths of 1–100% or 1–999px to prevent CSS injection.
+- Phase 3 — Place the table and one trusted body.unsafeHtml string before the outro so the draft schema can express totals and rich blocks.

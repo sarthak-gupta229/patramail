@@ -59,3 +59,30 @@ test('merges custom themes and rejects values outside the CSS grammar', () => {
     /theme.font/,
   );
 });
+
+test('renders semantic table headers, union columns, widths and totals safely', () => {
+  const html = new PatraMail().generateHtml({
+    body: {
+      table: {
+        data: [{ '<Item>': '<A>' }, { Price: 0 }],
+        columns: { customWidth: { '<Item>': '50%', Price: '20%;color:red' } },
+        total: { '<Item>': 'Total', Price: 0 },
+      },
+    },
+  });
+  assert.match(html, /<th scope="col"[^>]*width:50%[^>]*>&lt;Item&gt;<\/th>/);
+  assert.match(html, /<th scope="col"[^>]*>Price<\/th>/);
+  assert.match(html, /&lt;A&gt;<\/td>/);
+  assert.match(
+    html,
+    /<tfoot>.*scope="row"[^>]*>Total<\/th>.*>0<\/td>.*<\/tfoot>/,
+  );
+  assert.doesNotMatch(html, /color:red/);
+});
+
+test('inserts only the explicit unsafeHtml block as raw markup', () => {
+  const html = new PatraMail().generateHtml({
+    body: { intro: '<em>escaped</em>', unsafeHtml: '<em>raw</em>' },
+  });
+  assert.match(html, /&lt;em&gt;escaped&lt;\/em&gt;.*<em>raw<\/em>/);
+});

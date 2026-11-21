@@ -2,6 +2,7 @@
 
 const { escape } = require('../escape');
 const actions = require('./actions');
+const { table } = require('./table');
 
 const paragraph = (value) =>
   value ? `<p style="margin:0 0 16px;">${escape(value)}</p>` : '';
@@ -16,6 +17,8 @@ module.exports = function body(data, theme) {
     greeting +
     intro +
     actions(data.actions ?? [], theme) +
+    table(data.table, theme) +
+    (data.unsafeHtml ?? '') +
     paragraph(data.outro) +
     paragraph(data.signature);
 

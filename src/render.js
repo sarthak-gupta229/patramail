@@ -33,7 +33,7 @@ module.exports = function render(email, theme, lang) {
     footer(email.footer ?? {}, product, theme);
   const card = rows
     ? `<!--[if mso]><table role="presentation" width="600" align="center" cellspacing="0" cellpadding="0" border="0"><tr><td><![endif]-->
-    <table role="presentation" class="pm-card" align="center" width="600" cellspacing="0" cellpadding="0" border="0" bgcolor="${theme.card}" style="width:100%;max-width:600px;background-color:${theme.card};color:${theme.text};border-radius:${theme.radius};font-family:${theme.font};font-size:16px;line-height:1.5;">
+    <table role="presentation" class="pm-card" align="center" width="600" cellspacing="0" cellpadding="0" border="0" bgcolor="${theme.card}" style="width:100%;max-width:600px;table-layout:fixed;background-color:${theme.card};color:${theme.text};border-radius:${theme.radius};font-family:${theme.font};font-size:16px;line-height:1.5;">
       ${rows}
     </table>
     <!--[if mso]></td></tr></table><![endif]-->`
@@ -51,6 +51,8 @@ module.exports = function render(email, theme, lang) {
 @media only screen and (max-width: 620px) {
   .pm-card { width: 100% !important; }
   .pm-outer { padding: 12px !important; }
+  .pm-table-scroll { overflow-x: auto !important; }
+  .pm-data-table { min-width: 400px !important; }
 }${darkStyles}
 </style>
 </head>
