@@ -1,6 +1,6 @@
 {
   "name": "patramail",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Generate transactional email HTML and plain text from structured input",
   "main": "src/index.js",
   "scripts": {

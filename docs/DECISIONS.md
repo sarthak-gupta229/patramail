@@ -28,3 +28,7 @@
 - Phase 6 — Use Node 18 and 22 locally, Chrome for layout, and Ethereal for synthetic SMTP delivery because no hosted CI, target inboxes, or client-rendering service account was available.
 - Phase 6 — Require explicit HTTP(S) authority syntax and a non-empty contact link target because URL parsers also accept forms that can resolve differently in HTML.
 - Phase 7 — Add docs/password-reset.png to show a reviewed browser capture in the README.
+- Phase 8 — Keep publishing and the GitHub tag and release manual so the user controls when the package goes live.
+- Phase 8 — Treat package.json as mandatory npm metadata alongside src, README.md, and LICENSE in the packed artifact.
+- Phase 8 — Install the tarball into an empty directory for the release smoke test because registry installation requires publication.
+- Phase 8 — Use a temporary npm cache for packing because the managed workspace cannot write to the default home cache.
