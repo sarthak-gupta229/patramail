@@ -54,11 +54,42 @@ warnings, Node emits a warning with code `PATRAMAIL_INPUT`.
   and single quotes for HTML text and quoted attributes. It casts other
   values to strings and returns `''` for `null` or `undefined`.
 
-## Event templates
+## Templates
 
-The named `templates` export contains six builders that return standard
-PatraMail input objects. Pass the result to any generation method.
-See [event templates](events.md) for names and options.
+The named `templates` export contains nine builders that return standard
+PatraMail input objects. Pass the result to either constructor's generation
+methods. See the [event template guide](events.md) for the six event builders.
+
+### Account templates
+
+| Builder                                | Action               |
+| -------------------------------------- | -------------------- |
+| `templates.passwordReset(options)`     | Reset password       |
+| `templates.emailVerification(options)` | Verify email address |
+| `templates.dashboardWelcome(options)`  | Go to dashboard      |
+
+```js
+const { PatraMail, templates } = require('patramail');
+const mailer = new PatraMail({
+  product: { name: 'Acme', link: 'https://acme.test' },
+});
+
+const { subject, html, text } = mailer.generate(
+  templates.passwordReset({
+    recipient: 'Jane',
+    link: 'https://acme.test/reset?token=example',
+  }),
+);
+```
+
+All three builders require an absolute HTTP(S) `link`. The optional
+`recipient` personalizes the message. Override `subject`, `preheader`,
+`intro`, `outro`, or `buttonText` to adapt the copy. `intro` and `outro`
+accept a string or an array of strings. Pass in the reset or verification URL
+created by your application.
+
+Run `npm run preview` to generate all three HTML files, or run
+`node examples/account.js email-verification` to print that example directly.
 
 ## Mailgen-style usage
 

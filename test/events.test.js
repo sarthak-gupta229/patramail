@@ -3,13 +3,21 @@
 const assert = require('node:assert/strict');
 const test = require('node:test');
 const { PatraMail, templates } = require('..');
+const eventKinds = [
+  'invitation',
+  'confirmation',
+  'reminder',
+  'update',
+  'cancellation',
+  'followUp',
+];
 
 test('generates distinct event templates with HTML, links and matching plain text', () => {
   const mailer = new PatraMail();
   const accents = new Set();
   const subjects = new Set();
-  for (const [kind, template] of Object.entries(templates)) {
-    const email = template({
+  for (const kind of eventKinds) {
+    const email = templates[kind]({
       name: '<Open House>',
       recipient: 'Maya',
       date: 'Saturday at 4 p.m.',
@@ -86,7 +94,7 @@ test('keeps event copy, status, links, and buttons readable in both built-in the
             : ((channel + 0.055) / 1.055) ** 2.4;
         return sum + linear * [0.2126, 0.7152, 0.0722][index];
       }, 0);
-  for (const kind of Object.keys(templates)) {
+  for (const kind of eventKinds) {
     for (const mode of ['light', 'dark']) {
       const colors = eventTheme(
         mode === 'dark' ? themes.dark : themes.default,

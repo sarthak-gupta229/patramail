@@ -48,7 +48,12 @@ email transport.
 
 ![Password-reset email preview showing the heading, reset button, and footer](docs/password-reset.png)
 
-## Event templates and Mailgen-style usage
+## Account and event templates
+
+Use `templates.passwordReset`, `templates.emailVerification`, or
+`templates.dashboardWelcome` for common account emails. Each accepts the
+action URL from your application and generates matching HTML and text.
+See the [account template example](docs/api.md#account-templates).
 
 Choose from invitation, registration confirmation, reminder, event update,
 cancellation, and follow-up templates. Each supplies event copy, a color

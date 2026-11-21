@@ -1,7 +1,8 @@
 'use strict';
 
 const render = require('./render');
-const { templates } = require('./events');
+const { templates: eventTemplates } = require('./events');
+const accountTemplates = require('./account-templates');
 const text = require('./text');
 const { escape } = require('./escape');
 const { themes, resolveTheme } = require('./themes');
@@ -61,5 +62,8 @@ module.exports = Mailgen;
 module.exports.PatraMail = PatraMail;
 module.exports.escape = escape;
 module.exports.themes = themes;
-module.exports.templates = templates;
+module.exports.templates = Object.freeze({
+  ...eventTemplates,
+  ...accountTemplates,
+});
 module.exports.Mailgen = Mailgen;

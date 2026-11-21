@@ -41,3 +41,5 @@
 - Mailgen-style follow-up — Add examples/mailgen-style/index.js as a standalone caller example that writes its own preview file, separate from the structured fixtures used by npm run preview.
 - Event redesign — Use shared paper and charcoal surfaces, serif event titles, and restrained status accents so the event identity and details lead each message.
 - Event redesign — Reuse the caller's custom theme colors and the existing button component, so themed event emails and custom action colors still work.
+- Account template follow-up — Add src/account-templates.js, examples/account.js and test/account-templates.test.js for three account builders, previews and coverage.
+- Account template follow-up — Reuse the transactional renderer and require an application-supplied HTTP(S) action link so the same input works with both constructors.
